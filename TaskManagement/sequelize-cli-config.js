@@ -10,8 +10,8 @@ module.exports = {
         const dbConfig = await loadDatabase();
         return {
             ...dbConfig.config,
-            modelsDir: path.resolve(__dirname, '../src/app/Containers/TasksManagment/Models'),
-            migrationsDir: path.resolve(__dirname, '../src/app/Containers/TasksManagment/Migrations'),
+            modelsDir: path.resolve(__dirname, '../src/app/Containers/TasksManagement/Models'),
+            migrationsDir: path.resolve(__dirname, '../src/app/Containers/TasksManagement/Migrations'),
         };
     },
 };

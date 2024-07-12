@@ -5,6 +5,7 @@ const sequelize = new Sequelize({
     dialect: 'postgres',
     username: 'user',
     password: 'password',
+    host: 'postgres',
     define:{
         underscored:true
     },

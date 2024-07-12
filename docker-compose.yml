@@ -11,6 +11,7 @@ services:
       POSTGRES_PASSWORD: password
     volumes:
       - pgdata:/var/lib/postgresql/data
+    restart: always
 
   rabbitmq:
     image: rabbitmq:3.12.0-management
@@ -20,11 +21,43 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: user
       RABBITMQ_DEFAULT_PASS: password
+    restart: always
 
   redis:
     image: redis:latest
     ports:
       - "6379:6379"
+    restart: always
+
+  authentication:
+    build:
+      context: ./Authentication
+      dockerfile: Dockerfile
+    environment:
+      - DATABASE_URL=postgres://user:password@postgres:5432/taskManagement
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - rabbitmq
+      - postgres
+      - redis
+    ports:
+      - "3001:3001"
+    restart: always
+
+  task_management:
+    build:
+      context: ./TaskManagement
+      dockerfile: Dockerfile
+    environment:
+      - DATABASE_URL=postgres://user:password@postgres:5432/taskManagement
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - rabbitmq
+      - postgres
+      - redis
+    ports:
+      - "3002:3002"
+    restart: always
 
 volumes:
   pgdata:

@@ -5,11 +5,11 @@
   "main": "dist/app.js",
   "scripts": {
     "build": "npx tsc",
-    "start": "node src/app.ts",
+    "start": "node dist/app.js",
     "dev": "nodemon src/app.ts",
-    "migrate": "npx sequelize-cli db:migrate --migrations-path src/app/Containers/TasksManagment/Migrations/ --config src/app/Ship/Configs/Sequelize/config.json",
-    "migrate:down": "npx sequelize-cli db:migrate:undo --migrations-path src/app/Containers/TasksManagment/Migrations/ --config src/app/Ship/Configs/Sequelize/config.json",
-    "seed": "npx sequelize-cli db:seed:all --seeders-path src/app/Containers/TasksManagment/Seeders/ --config src/app/Ship/Configs/Sequelize/config.json",
+    "migrate": "npx sequelize-cli db:migrate --migrations-path src/app/Containers/TasksManagement/Migrations/ --config src/app/Ship/Configs/Sequelize/config.json",
+    "migrate:down": "npx sequelize-cli db:migrate:undo --migrations-path src/app/Containers/TasksManagement/Migrations/ --config src/app/Ship/Configs/Sequelize/config.json",
+    "seed": "npx sequelize-cli db:seed:all --seeders-path src/app/Containers/TasksManagement/Seeders/ --config src/app/Ship/Configs/Sequelize/config.json",
     "test": "jest"
   },
   "keywords": [],
@@ -43,6 +43,7 @@
     "redis": "^4.6.15",
     "reflect-metadata": "^0.2.2",
     "sequelize": "^6.37.3",
+    "sequelize-cli": "^6.6.2",
     "sequelize-typescript": "^2.1.6",
     "sqlite3": "^5.1.7",
     "swagger-ui-express": "^5.0.1",

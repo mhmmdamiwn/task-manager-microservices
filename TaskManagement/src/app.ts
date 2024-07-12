@@ -1,13 +1,13 @@
 import express, { Application, Request, Response, NextFunction } from 'express';
 import bodyParser from 'body-parser';
 import swaggerUi from 'swagger-ui-express';
-import swaggerDocument from './app/Containers/TasksManagment/Swaggers/swagger.json'; // Adjust path as needed
+import swaggerDocument from './app/Containers/TasksManagement/Swaggers/swagger.json'; // Adjust path as needed
 import { sequelize } from './app/Ship/Configs/Database';
-import TaskRoutes from './app/Containers/TasksManagment/Routes/TaskRoutes';
-import {initModels} from './app/Containers/TasksManagment/Models';
+import TaskRoutes from './app/Containers/TasksManagement/Routes/TaskRoutes';
+import {initModels} from './app/Containers/TasksManagement/Models';
 import {RabbitMQHelper} from "./app/Ship/Helpers/RabbitMQHelper";
-import {TaskServiceListener} from "./app/Containers/TasksManagment/Listeners/TaskServiceListener";
-import {rateLimiter} from "./app/Containers/TasksManagment/Middlewares/RateLimiter";
+import {TaskServiceListener} from "./app/Containers/TasksManagement/Listeners/TaskServiceListener";
+import {rateLimiter} from "./app/Containers/TasksManagement/Middlewares/RateLimiter";
 import RedisClient from "./app/Ship/Configs/Redis";
 
 // Initialize Express application
@@ -41,7 +41,7 @@ RedisClient.connect()
 
 sequelize.sync().then(() => {
     initModels(sequelize)
-    RabbitMQHelper.connect('amqp://user:password@localhost:5672').then(()=>{
+    RabbitMQHelper.connect('amqp://user:password@rabbitmq:5672').then(()=>{
         TaskServiceListener.startListening(
             'verify_token_response_queue'
         ).catch(console.error);
