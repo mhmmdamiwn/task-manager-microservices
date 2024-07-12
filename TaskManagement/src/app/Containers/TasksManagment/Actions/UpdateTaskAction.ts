@@ -24,6 +24,5 @@ export class UpdateTaskAction {
         else{
             throw new ErrorHandler('access denied', 403);
         }
-
     }
 }
