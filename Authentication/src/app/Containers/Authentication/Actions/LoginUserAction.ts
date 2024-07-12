@@ -2,9 +2,9 @@ import bcrypt from 'bcryptjs';
 import { User,UserRole,Role } from '../Models';
 import { TokenHelper } from '../../../Ship/Helpers/TokenHelper'; // Adjust path as per your structure
 
-export class LoginUser {
+export class LoginUserAction {
 
-    static async execute(data: { email: string; password: string }) {
+    static async run(data: { email: string; password: string }) {
         const user = await User.findOne({ where: { email: data.email } });
         if (!user) {
             throw new Error('User not found');
