@@ -37,7 +37,7 @@ RedisClient.connect()
 
 sequelize.sync().then(() => {
     initModels(sequelize)
-    RabbitMQHelper.connect('amqp://user:password@localhost:5672').then(()=>{
+    RabbitMQHelper.connect('amqp://user:password@rabbitmq:5672').then(()=>{
         TokenVerificationListener.startListening(
             'verify_token_queue'
         ).catch(console.error);
