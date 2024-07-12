@@ -18,7 +18,6 @@ export class RabbitMQHelper {
         try {
             await this.channel.assertQueue(queue, { durable: false });
             this.channel.sendToQueue(queue, Buffer.from(message));
-            console.log(`Message sent to queue ${queue}: ${message}`);
         } catch (error) {
             console.error('Failed to send message to RabbitMQ', error);
             throw error;

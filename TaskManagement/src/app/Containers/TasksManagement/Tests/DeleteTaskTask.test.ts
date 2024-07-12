@@ -10,9 +10,7 @@ describe('DeleteTaskTask', () => {
     beforeAll(async () => {
         // Connect to Redis
         RedisClient.connect()
-            .then(()=>{
-                console.log('redis connected')
-            })
+            .then()
             .catch((err) => {
                 console.error('Error connecting to Redis:', err);
             });
@@ -38,7 +36,6 @@ describe('DeleteTaskTask', () => {
 
     it('should delete a task', async () => {
         const result = await DeleteTaskTask.run(testTaskId);
-        console.log('result',result)
         expect(result).toBeDefined();
         expect(result.message).toBe('Task deleted successfully');
     });

@@ -9,9 +9,7 @@ describe('GetAllTasks', () => {
     beforeAll(async () => {
         // Connect to Redis
         RedisClient.connect()
-            .then(()=>{
-                console.log('redis connected')
-            })
+            .then()
             .catch((err) => {
                 console.error('Error connecting to Redis:', err);
             });

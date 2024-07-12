@@ -7,11 +7,9 @@ import { Request } from 'express';
 
 export class LoginUserAction {
     static async run(req: Request) {
-        console.log('in the action')
         const data:{ email: string; password: string } = req.body
         const user = await User.findOne({ where: { email: data.email } });
 
-        console.log('user', user)
         if (!user) {
             throw new ErrorHandler('user not found', 404);
         }

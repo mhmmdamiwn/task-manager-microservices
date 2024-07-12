@@ -19,9 +19,7 @@ describe('UpdateTaskTask', () => {
     beforeAll(async () => {
         // Connect to Redis
         RedisClient.connect()
-            .then(()=>{
-                console.log('redis connected')
-            })
+            .then()
             .catch((err) => {
                 console.error('Error connecting to Redis:', err);
             });
@@ -37,9 +35,6 @@ describe('UpdateTaskTask', () => {
             dueDate: new Date(),
             userId: 1,
         });
-
-        console.log('created',createdTask)
-
         testTaskId = createdTask.id;
     });
 
@@ -57,7 +52,6 @@ describe('UpdateTaskTask', () => {
         await UpdateTaskTask.run(updateData, { id: testTaskId });
 
         const updatedTask = await GetTaskByIdTask.run(testTaskId);
-        console.log(updatedTask)
         expect(updatedTask).toBeDefined();
         expect(updatedTask.title).toBe('Updated Task Title');
         expect(updatedTask.description).toBe('Updated description');
