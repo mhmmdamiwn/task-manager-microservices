@@ -1,22 +1,19 @@
 import {
     Association,
-    BelongsToGetAssociationMixin,
-    BelongsToSetAssociationMixin,
-    BelongsToCreateAssociationMixin,
     CreationOptional,
     DataTypes,
     InferCreationAttributes,
     InferAttributes,
-    Model,
     NonAttribute,
     Sequelize
 } from 'sequelize'
 import type { Role } from './Role'
 import type { User } from './User'
+import {BaseModel} from "../../../Ship/BaseModel";
 
 type UserRoleAssociations = 'role' | 'user'
 
-export class UserRole extends Model<
+export class UserRole extends BaseModel<
     InferAttributes<UserRole, {omit: UserRoleAssociations}>,
     InferCreationAttributes<UserRole, {omit: UserRoleAssociations}>
 > {
@@ -28,15 +25,9 @@ export class UserRole extends Model<
 
     // UserRole belongsTo Role
     declare role?: NonAttribute<Role>
-    declare getRole: BelongsToGetAssociationMixin<Role>
-    declare setRole: BelongsToSetAssociationMixin<Role, number>
-    declare createRole: BelongsToCreateAssociationMixin<Role>
 
     // UserRole belongsTo User
     declare user?: NonAttribute<User>
-    declare getUser: BelongsToGetAssociationMixin<User>
-    declare setUser: BelongsToSetAssociationMixin<User, number>
-    declare createUser: BelongsToCreateAssociationMixin<User>
 
     declare static associations: {
         role: Association<UserRole, Role>,
@@ -46,7 +37,7 @@ export class UserRole extends Model<
     static initModel(sequelize: Sequelize): typeof UserRole {
         UserRole.init({
             id: {
-                type: DataTypes.INTEGER.UNSIGNED,
+                type: DataTypes.INTEGER,
                 primaryKey: true,
                 autoIncrement: true,
                 allowNull: false

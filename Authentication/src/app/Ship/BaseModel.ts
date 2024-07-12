@@ -1,4 +1,4 @@
-import { Model, Sequelize, ModelStatic } from 'sequelize';
+import { Model, ModelStatic } from 'sequelize';
 import { getCachedData, setCachedData, generateCacheKey } from './utils/Cache';
 
 export class BaseModel<TModelAttributes extends {} = any, TCreationAttributes extends {} = any> extends Model<TModelAttributes, TCreationAttributes> {
@@ -35,8 +35,7 @@ export class BaseModel<TModelAttributes extends {} = any, TCreationAttributes ex
         }
 
         const results = await super.findAll({ ...options, raw: false });
-
-        if (results.length > 0) {
+        if (results?.length > 0) {
             await setCachedData(cacheKey, results.map(result => result.toJSON()), 60); // Cache for 1 minute
         }
 

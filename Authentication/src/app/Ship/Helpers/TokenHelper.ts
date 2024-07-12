@@ -1,5 +1,4 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import { User } from '../../Containers/Authentication/Models'; // Adjust path as per your structure
 
 interface TokenPayload extends JwtPayload {
     id: number;
@@ -17,6 +16,7 @@ export class TokenHelper {
         return jwt.sign(payload, 'secretKey', { expiresIn });
     }
     public static verifyToken(token: string): JwtPayload | null {
+        console.log('token to verify', token)
         try {
             const decoded = jwt.verify(token, 'secretKey');
             return decoded as JwtPayload; // Type assertion to JwtPayload

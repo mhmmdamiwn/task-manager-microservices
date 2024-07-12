@@ -3,11 +3,11 @@ import {
     DataTypes,
     InferCreationAttributes,
     InferAttributes,
-    Model,
     Sequelize
 } from 'sequelize'
+import {BaseModel} from "../../../Ship/BaseModel";
 
-export class User extends Model<
+export class User extends BaseModel<
     InferAttributes<User>,
     InferCreationAttributes<User>
 > {
@@ -20,7 +20,7 @@ export class User extends Model<
     static initModel(sequelize: Sequelize): typeof User {
         User.init({
             id: {
-                type: DataTypes.INTEGER.UNSIGNED,
+                type: DataTypes.INTEGER,
                 primaryKey: true,
                 autoIncrement: true,
                 allowNull: false

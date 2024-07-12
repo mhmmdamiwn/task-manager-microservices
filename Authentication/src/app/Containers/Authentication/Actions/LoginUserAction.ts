@@ -1,18 +1,24 @@
 import bcrypt from 'bcryptjs';
 import { User,UserRole,Role } from '../Models';
-import { TokenHelper } from '../../../Ship/Helpers/TokenHelper'; // Adjust path as per your structure
+import { TokenHelper } from '../../../Ship/Helpers/TokenHelper';
+import {ErrorHandler} from "../../../Ship/Handlers/ErrorHandler";
+import jwt from "jsonwebtoken"; // Adjust path as per your structure
+import { Request } from 'express';
 
 export class LoginUserAction {
-
-    static async run(data: { email: string; password: string }) {
+    static async run(req: Request) {
+        console.log('in the action')
+        const data:{ email: string; password: string } = req.body
         const user = await User.findOne({ where: { email: data.email } });
+
+        console.log('user', user)
         if (!user) {
-            throw new Error('User not found');
+            throw new ErrorHandler('user not found', 404);
         }
 
         const passwordMatch = await bcrypt.compare(data.password, user.password);
         if (!passwordMatch) {
-            throw new Error('Invalid password');
+            throw new ErrorHandler('Invalid password. But we do not return this in the production', 400);
         }
 
         // Fetch user's role from database
@@ -22,7 +28,15 @@ export class LoginUserAction {
         });
         const role =  userRole?.role?.name
 
-        const token = TokenHelper.generateToken({ ...user.toJSON(), role }); // Generate token
-        return { id: user.id, token }; // Return token and user ID
+        const generatedToken = TokenHelper.generateToken({ ...user.toJSON(), role }); // Generate token
+
+        const result =  { id: user.id, generatedToken }; // Return token and user ID
+
+        if (!result.id) {
+            throw new ErrorHandler('user not found', 404);
+        }
+
+        return jwt.sign({ id: result.id }, 'secretKey', { expiresIn: '1h' });
+
     }
 }
