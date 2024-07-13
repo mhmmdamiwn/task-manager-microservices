@@ -39,20 +39,28 @@ RedisClient.connect()
         console.error('Error connecting to Redis:', err);
     });
 
+// Connect to Postgres
 sequelize.sync().then(() => {
+    // initializing the models
     initModels(sequelize)
-    RabbitMQHelper.connect('amqp://user:password@rabbitmq:5672').then(()=>{
-        TaskServiceListener.startListening(
-            'verify_token_response_queue'
-        ).catch(console.error);
-        app.listen(PORT, () => {
-            console.log(`Auth Service is running on port ${PORT}`);
-        });
-    }).catch(()=>{
-        console.log('rabbit mq connection error')
+}).catch(()=>{
+    console.log('database error')
+});
+
+// Connect to Rabbitmq
+RabbitMQHelper.connect('amqp://user:password@rabbitmq:5672').then(()=>{
+    // start listening to the messages from the Authentication service
+    TaskServiceListener.startListening(
+        'verify_token_response_queue'
+    ).catch(console.error);
+
+    // starting the server
+    app.listen(PORT, () => {
+        console.log(`Auth Service is running on port ${PORT}`);
     });
-}).catch((err)=>{
-    console.log('database error',err)
+
+}).catch(()=>{
+    console.log('rabbit mq connection error')
 });
 
 export default app;

@@ -9,16 +9,15 @@ import {MarkTodayTasksAction}  from '../Actions/MarkTodayTasksAction';
 import {GetTaskByIdAction}  from '../Actions/GetTaskByIdAction';
 import {GetAllTasksAction} from "../Actions/GetAllTasksAction";
 
+// interfaces
 export interface UserRequest extends Request{
     user?: {id:number} & { role?: string }; // Extend User with role property
 }
-
 interface MyError extends Error {
     statusCode?: number; // Optional property for status code
     message: string;
     code?: string; // Optional property for specific error codes (e.g., from the database)
 }
-
 export interface UserWithRole {
     id: number
     role: string; // Ensure role is a string
@@ -58,10 +57,5 @@ export class TaskController {
     public static async markTasksToday(req: Request, res: Response) {
         const result = await MarkTodayTasksAction.run(req);
         res.json(result);
-    }
-
-    private static handleError(res: Response, error: MyError, statusCode: number) {
-        const errorResponse = { error: error.message };
-        res.status(statusCode).json(errorResponse);
     }
 }

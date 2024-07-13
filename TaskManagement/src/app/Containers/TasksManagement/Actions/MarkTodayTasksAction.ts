@@ -1,8 +1,12 @@
-import { Op } from 'sequelize';
+// tasks
 import {UpdateTaskTask} from "../Tasks/UpdateTaskTask";
-import {UserRequest} from "../Controllers/TaskController";
-import dayjs from 'dayjs';
 
+// interfaces
+import {UserRequest} from "../Controllers/TaskController";
+
+// bases
+import { Op } from 'sequelize';
+import dayjs from 'dayjs';
 
 export class MarkTodayTasksAction {
     static async run(req: UserRequest) {

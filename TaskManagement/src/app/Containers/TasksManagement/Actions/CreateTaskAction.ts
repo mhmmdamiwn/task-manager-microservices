@@ -1,7 +1,8 @@
+// tasks
 import {CreateTaskTask} from "../Tasks/CreateTaskTask";
-import {UserRequest} from "../Controllers/TaskController";
-import dayjs from "dayjs";
 
+// interfaces
+import {UserRequest} from "../Controllers/TaskController";
 interface TaskData {
     title: string;
     description: string;
@@ -9,6 +10,9 @@ interface TaskData {
     dueDate: Date;
     userId: number
 }
+
+// bases
+import dayjs from "dayjs";
 
 export class CreateTaskAction {
     static async run(req:UserRequest) {

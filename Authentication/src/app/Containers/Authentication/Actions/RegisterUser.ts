@@ -1,6 +1,9 @@
+// models
+import { User,UserRole,Role } from '../Models';
+
+// bases
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { User,UserRole,Role } from '../Models';
 
 export class RegisterUser {
     static async execute(data: { email: string; password: string; }) {

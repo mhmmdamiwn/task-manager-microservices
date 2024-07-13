@@ -1,6 +1,7 @@
 import { Model, ModelStatic } from 'sequelize';
 import { getCachedData, setCachedData, generateCacheKey } from './utils/Cache';
 
+// BaseModel for adding the cache mechanism to the repository methods that get used in the entire app
 export class BaseModel<TModelAttributes extends {} = any, TCreationAttributes extends {} = any> extends Model<TModelAttributes, TCreationAttributes> {
     static async findByPk<M extends BaseModel>(
         this: ModelStatic<M>,

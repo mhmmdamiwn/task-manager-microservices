@@ -1,8 +1,15 @@
-import bcrypt from 'bcryptjs';
-import { User,UserRole,Role } from '../Models';
+// helpers
 import { TokenHelper } from '../../../Ship/Helpers/TokenHelper';
+
+// models
+import { User,UserRole,Role } from '../Models';
+
+// bases
+import bcrypt from 'bcryptjs';
 import {ErrorHandler} from "../../../Ship/Handlers/ErrorHandler";
 import jwt from "jsonwebtoken";
+
+// interfaces
 import { Request } from 'express';
 
 export class LoginUserAction {

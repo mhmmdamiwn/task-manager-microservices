@@ -1,7 +1,11 @@
+// tasks
 import {GetAllTasks} from "../Tasks/GetAllTasks";
-import {Op} from "sequelize";
+
+// interfaces
 import {UserRequest,UserWithRole} from "../Controllers/TaskController";
 
+// bases
+import {Op} from "sequelize";
 
 export class FindTasksAction {
     static async run(req: UserRequest) {
