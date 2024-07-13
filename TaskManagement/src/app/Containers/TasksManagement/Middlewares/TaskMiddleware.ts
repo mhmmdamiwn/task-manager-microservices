@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from 'express';
-import jwt, { JwtPayload } from 'jsonwebtoken';
 import { User } from '../Models';
 import { RabbitMQHelper } from '../../../Ship/Helpers/RabbitMQHelper'; // Adjust path as per your structure
 import { v4 as uuidv4 } from 'uuid';
@@ -7,10 +6,6 @@ import { EventEmitter } from 'events';
 import {TaskServiceListener} from "../Listeners/TaskServiceListener";
 
 const eventEmitter:EventEmitter = TaskServiceListener.getEventEmitter();
-
-interface DecodedUser extends JwtPayload {
-    id: number; // Assuming id is a number in your User model
-}
 
 // Define a new interface that extends the existing Request interface
 interface AuthenticatedRequest extends Request {

@@ -57,6 +57,4 @@ describe('UpdateTaskTask', () => {
         expect(updatedTask.description).toBe('Updated description');
         expect(updatedTask.status).toBe('completed');
     });
-
-    // Add more tests for handling errors, edge cases, etc.
 });

@@ -48,6 +48,4 @@ describe('GetUserTasks', () => {
         expect(tasks).toHaveLength(1);
         expect(tasks[0].userId).toBe(testUserId);
     });
-
-    // Add more tests for filtering, pagination, etc.
 });

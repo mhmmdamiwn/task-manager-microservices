@@ -44,6 +44,4 @@ describe('DeleteTaskTask', () => {
         const nonExistingTaskId = testTaskId + 100; // Assume a non-existing ID
         await expect(DeleteTaskTask.run(nonExistingTaskId)).rejects.toThrowError();
     });
-
-    // Add more tests for other scenarios
 });

@@ -2,7 +2,7 @@ import bcrypt from 'bcryptjs';
 import { User,UserRole,Role } from '../Models';
 import { TokenHelper } from '../../../Ship/Helpers/TokenHelper';
 import {ErrorHandler} from "../../../Ship/Handlers/ErrorHandler";
-import jwt from "jsonwebtoken"; // Adjust path as per your structure
+import jwt from "jsonwebtoken";
 import { Request } from 'express';
 
 export class LoginUserAction {
@@ -22,7 +22,7 @@ export class LoginUserAction {
         // Fetch user's role from database
         const userRole = await UserRole.findOne({
             where: { userId: user.id },
-            include: [{ model: Role, as: 'role' }] // Specify the alias 'role' here
+            include: [{ model: Role, as: 'role' }]
         });
         const role =  userRole?.role?.name
 
